@@ -6,7 +6,7 @@ class Token:
     type = ""
     lexeme = ""
 
-    def Token(type, lexeme):
+    def __init__(this, type, lexeme):
         this.type = type
         this.lexeme = lexeme
 
@@ -27,10 +27,12 @@ def scan(source):
             tokens.append(Token("MINUS", line))
         elif(line == '+'):
             tokens.append(Token("PLUS", line))
-        elif(temp := int(line)):
-            tokens.append(Token("NUM", line))
         else:
-            print("Não é possível converter %s"%line + "para token")
+            try:
+                temp = int(line)
+                tokens.append(Token("NUM", line))
+            except:
+                raise Exception("Nao eh possivel converter %s"%line + " para um token valido")
 
     return tokens;
 
